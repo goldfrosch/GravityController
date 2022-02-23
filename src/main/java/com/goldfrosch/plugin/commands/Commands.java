@@ -1,13 +1,13 @@
 package com.goldfrosch.plugin.commands;
 
-import com.goldfrosch.plugin.MainPlugin;
+import com.goldfrosch.plugin.GravityController;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
 public class Commands extends AbstractCommand{
-  public Commands(MainPlugin plugin, String Command) {
+  public Commands(GravityController plugin, String Command) {
     super(plugin,Command);
   }
 
@@ -18,7 +18,7 @@ public class Commands extends AbstractCommand{
 
   @Override
   public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
-    String prefix = plugin.getConfig().getString("Message.Prefix").replace("&", "§");
+    String prefix = plugin.getConfig().getString("message.prefix").replace("&", "§");
     if (sender instanceof Player) {
       Player player = (Player) sender;
       if(label.equalsIgnoreCase("cmd")){

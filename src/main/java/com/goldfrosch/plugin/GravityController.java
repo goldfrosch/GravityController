@@ -7,14 +7,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MainPlugin extends JavaPlugin implements Listener {
+public class GravityController extends JavaPlugin implements Listener {
+  public Boolean start = false;
+
   PluginDescriptionFile pdfFile = this.getDescription();
   String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
 
   @Override
   public void onEnable(){
     Bukkit.getPluginManager().registerEvents(new NewEvent(this),this);
-    //config파일 있는지 파악 후 생성
+
+    //config 파일 있는지 파악 후 생성
     if (!getDataFolder().exists()) {
       getConfig().options().copyDefaults(true);
       saveConfig();
