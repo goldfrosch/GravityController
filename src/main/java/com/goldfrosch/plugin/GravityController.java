@@ -2,13 +2,17 @@ package com.goldfrosch.plugin;
 
 import com.goldfrosch.plugin.commands.Commands;
 import com.goldfrosch.plugin.events.NewEvent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.Setter;
+
+@Setter
 public class GravityController extends JavaPlugin implements Listener {
-  public Boolean start = false;
+  private Boolean start = false;
 
   PluginDescriptionFile pdfFile = this.getDescription();
   String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
@@ -24,6 +28,9 @@ public class GravityController extends JavaPlugin implements Listener {
     } else {
       saveConfig();
     }
+
+    //Event Register
+    registerEvent();
 
     //command
     Commands cmd = new Commands(this,"cmd");
@@ -42,5 +49,9 @@ public class GravityController extends JavaPlugin implements Listener {
 
   public void consoleLog(String msg){
     getLogger().info(msg);
+  }
+
+  public void registerEvent() {
+    new NewEvent(this);
   }
 }

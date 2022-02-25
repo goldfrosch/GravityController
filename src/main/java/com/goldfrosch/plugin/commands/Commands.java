@@ -21,9 +21,26 @@ public class Commands extends AbstractCommand{
     String prefix = plugin.getConfig().getString("message.prefix").replace("&", "§");
     if (sender instanceof Player) {
       Player player = (Player) sender;
-      if(label.equalsIgnoreCase("cmd")){
+      if(label.equalsIgnoreCase("gravity")){
         if(args.length == 0){
-          player.sendMessage(prefix + "TEST");
+          player.sendMessage(prefix + "어쩔 티비");
+        } else {
+          switch (args[1]) {
+            case "start":
+              player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
+            case "stop":
+              try {
+                player.sendMessage(prefix + "장비를 정지합니다");
+                Thread.sleep(1000);
+                player.sendMessage(prefix + "어 뭐야 안되잖아?");
+                Thread.sleep(500);
+                player.sendMessage(prefix + "ㅋㅋ 구라임 멈춤 ㅅㄱ");
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+            default:
+              player.sendMessage("없는 명령어 입니다.");
+          }
         }
       }
     }
