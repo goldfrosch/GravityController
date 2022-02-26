@@ -3,19 +3,24 @@ package com.goldfrosch.plugin;
 import com.goldfrosch.plugin.commands.Commands;
 import com.goldfrosch.plugin.events.NewEvent;
 
+import com.outstandingboy.donationalert.platform.Twip;
+
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
-import lombok.Setter;
 
-@Setter
+import java.io.IOException;
+
+@Getter
 public class GravityController extends JavaPlugin implements Listener {
-  private Boolean start = false;
-
   PluginDescriptionFile pdfFile = this.getDescription();
   String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
+
+  BukkitScheduler scheduler = getServer().getScheduler();
 
   @Override
   public void onEnable(){
@@ -29,11 +34,21 @@ public class GravityController extends JavaPlugin implements Listener {
       saveConfig();
     }
 
+
+    try {
+      Twip twip = new Twip("pDRed1bz29");
+      twip.subscribeDonation((donation -> {
+        Bukkit.broadcastMessage(String.valueOf(donation.getAmount()));
+      }));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     //Event Register
     registerEvent();
 
     //command
-    Commands cmd = new Commands(this,"cmd");
+    Commands cmd = new Commands(this,"gravity");
     getCommand(cmd.getCommand()).setExecutor(cmd);
     getCommand(cmd.getCommand()).setTabCompleter(cmd);
 
