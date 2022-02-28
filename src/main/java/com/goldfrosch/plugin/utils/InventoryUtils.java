@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryUtils {
-    private Player player;
+    private final Player player;
 
     public InventoryUtils(Player player) {
         this.player = player;
@@ -17,7 +17,6 @@ public class InventoryUtils {
                 amount += item.getAmount();
             }
         }
-
         return amount;
     }
 }

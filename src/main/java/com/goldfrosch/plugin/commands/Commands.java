@@ -2,7 +2,7 @@ package com.goldfrosch.plugin.commands;
 
 import com.goldfrosch.plugin.GravityController;
 
-import com.goldfrosch.plugin.utils.TimerUtils;
+import com.goldfrosch.plugin.utils.MusicUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -24,8 +24,6 @@ public class Commands extends AbstractCommand{
 
     if (sender instanceof Player) {
       Player player = (Player) sender;
-      TimerUtils gravityTimer = new TimerUtils(plugin, player);
-
       if(label.equalsIgnoreCase("gravity")){
         if(args.length == 0){
           player.sendMessage(prefix + "어쩔 티비");
@@ -33,7 +31,7 @@ public class Commands extends AbstractCommand{
           switch (args[0]) {
             case "start":
               player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
-              gravityTimer.setGravity();
+              plugin.setStatus(true);
               break;
             case "stop":
               try {
@@ -42,7 +40,7 @@ public class Commands extends AbstractCommand{
                 player.sendMessage(prefix + "어 뭐야 안되잖아?");
                 Thread.sleep(500);
                 player.sendMessage(prefix + "ㅋㅋ 구라임 멈춤 ㅅㄱ");
-                gravityTimer.stopGravity();
+                plugin.setStatus(false);
               } catch (InterruptedException e) {
                 e.printStackTrace();
               }

@@ -1,14 +1,12 @@
 package com.goldfrosch.plugin.utils;
 
+import lombok.RequiredArgsConstructor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+@RequiredArgsConstructor
 public class MusicUtils {
-    Player player;
-
-    public MusicUtils(Player player) {
-        this.player = player;
-    }
+    private final Player player;
 
     public void playRandom() {
         double[] pitchList = new double[] {
@@ -20,8 +18,8 @@ public class MusicUtils {
 
         for(double pitch: pitchList) {
             try {
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 1, (float) pitch);
-                Thread.sleep(500);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 10, (float) pitch);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
