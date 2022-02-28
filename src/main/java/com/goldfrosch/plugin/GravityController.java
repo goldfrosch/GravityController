@@ -1,44 +1,50 @@
 package com.goldfrosch.plugin;
 
 import com.goldfrosch.plugin.commands.Commands;
-import com.goldfrosch.plugin.events.NewEvent;
+import com.goldfrosch.plugin.events.GravityEvent;
 
+import com.goldfrosch.plugin.utils.MusicUtils;
 import com.outstandingboy.donationalert.platform.Twip;
 
 import lombok.Getter;
+import lombok.Setter;
+
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-
 import java.io.IOException;
 
 @Getter
+@Setter
 public class GravityController extends JavaPlugin implements Listener {
-  PluginDescriptionFile pdfFile = this.getDescription();
-  String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
+  private PluginDescriptionFile pdfFile = this.getDescription();
+  private String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
 
-  BukkitScheduler scheduler = getServer().getScheduler();
+  private Boolean status = false;
 
   @Override
   public void onEnable(){
-    Bukkit.getPluginManager().registerEvents(new NewEvent(this),this);
+    Bukkit.getPluginManager().registerEvents(new GravityEvent(this),this);
 
     //config 파일 있는지 파악 후 생성
     if (!getDataFolder().exists()) {
       getConfig().options().copyDefaults(true);
-      saveConfig();
-    } else {
-      saveConfig();
     }
+    saveConfig();
 
-
+    //투네이션 연동 작업
     try {
       Twip twip = new Twip("pDRed1bz29");
       twip.subscribeDonation((donation -> {
-        Bukkit.broadcastMessage(String.valueOf(donation.getAmount()));
+        for(Player player: getServer().getOnlinePlayers()) {
+          MusicUtils musicUtils = new MusicUtils(player);
+          musicUtils.playRandom();
+        }
+        Bukkit.broadcastMessage(donation.getAmount() + "원 후원 감사합니다 :)");
       }));
     } catch (IOException e) {
       e.printStackTrace();
@@ -67,6 +73,6 @@ public class GravityController extends JavaPlugin implements Listener {
   }
 
   public void registerEvent() {
-    new NewEvent(this);
+    new GravityEvent(this);
   }
 }
