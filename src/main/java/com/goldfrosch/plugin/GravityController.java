@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.IOException;
 
@@ -28,8 +27,6 @@ public class GravityController extends JavaPlugin implements Listener {
 
   @Override
   public void onEnable(){
-    Bukkit.getPluginManager().registerEvents(new GravityEvent(this),this);
-
     //config 파일 있는지 파악 후 생성
     if (!getDataFolder().exists()) {
       getConfig().options().copyDefaults(true);
@@ -73,6 +70,6 @@ public class GravityController extends JavaPlugin implements Listener {
   }
 
   public void registerEvent() {
-    new GravityEvent(this);
+    Bukkit.getPluginManager().registerEvents(new GravityEvent(this),this);
   }
 }
