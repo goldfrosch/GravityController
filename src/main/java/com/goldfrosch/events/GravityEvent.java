@@ -1,7 +1,8 @@
-package com.goldfrosch.plugin.events;
+package com.goldfrosch.events;
 
-import com.goldfrosch.plugin.GravityController;
-import com.goldfrosch.plugin.utils.InventoryUtils;
+import com.destroystokyo.paper.event.player.PlayerJumpEvent;
+import com.goldfrosch.GravityController;
+import com.goldfrosch.utils.InventoryUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,16 +52,12 @@ public class GravityEvent implements Listener {
     }
   }
 
-//  @EventHandler
-//  public void onPlayerJumpEvent(PlayerMoveEvent e) {
-//    Player player = e.getPlayer();
-//
-//    if(plugin.getStatus()) {
-//      if (playerInvAmount.get(e.getPlayer().getUniqueId()) >= 1152 && !player.isFlying() && !player.isSwimming()) {
-//        e.setCancelled(true);
-//        Block block = e.getFrom().getBlock();
-//        block.setType(Material.AIR);
-//      }
-//    }
-//  }
+  @EventHandler
+  public void onPlayerJumpEvent(PlayerJumpEvent e) {
+    InventoryUtils invUtils = new InventoryUtils(e.getPlayer());
+    int invAmounts = playerInvAmount.getOrDefault(e.getPlayer().getUniqueId(), invUtils.getInventoryItemsAmount());
+    if(plugin.getStatus() && invAmounts >= 1152) {
+      e.setCancelled(true);
+    }
+  }
 }

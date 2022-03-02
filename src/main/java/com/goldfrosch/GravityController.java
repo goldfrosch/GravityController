@@ -1,9 +1,9 @@
-package com.goldfrosch.plugin;
+package com.goldfrosch;
 
-import com.goldfrosch.plugin.commands.Commands;
-import com.goldfrosch.plugin.events.GravityEvent;
+import com.goldfrosch.commands.Commands;
+import com.goldfrosch.events.GravityEvent;
+import com.goldfrosch.utils.MusicUtils;
 
-import com.goldfrosch.plugin.utils.MusicUtils;
 import com.outstandingboy.donationalert.platform.Twip;
 
 import lombok.Getter;
@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,7 +18,7 @@ import java.io.IOException;
 
 @Getter
 @Setter
-public class GravityController extends JavaPlugin implements Listener {
+public class GravityController extends JavaPlugin {
   private PluginDescriptionFile pdfFile = this.getDescription();
   private String pfName = pdfFile.getName() + " v" + pdfFile.getVersion();
 
@@ -38,10 +37,10 @@ public class GravityController extends JavaPlugin implements Listener {
       Twip twip = new Twip("pDRed1bz29");
       twip.subscribeDonation((donation -> {
         for(Player player: getServer().getOnlinePlayers()) {
+          player.sendTitle("", donation.getAmount() + "원 후원 감사합니다 :)",1,1,1);
           MusicUtils musicUtils = new MusicUtils(player);
           musicUtils.playRandom();
         }
-        Bukkit.broadcastMessage(donation.getAmount() + "원 후원 감사합니다 :)");
       }));
     } catch (IOException e) {
       e.printStackTrace();

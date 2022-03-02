@@ -1,4 +1,4 @@
-package com.goldfrosch.plugin.utils;
+package com.goldfrosch.utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

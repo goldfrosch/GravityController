@@ -1,4 +1,4 @@
-package com.goldfrosch.plugin.utils;
+package com.goldfrosch.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.bukkit.Sound;

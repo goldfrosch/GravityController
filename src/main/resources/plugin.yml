@@ -1,7 +1,7 @@
-main: com.goldfrosch.plugin.GravityController
+main: com.goldfrosch.GravityController
 name: GravityController
 version: 0.0.1-SNAPSHOT
-api-version: 1.16
+api-version: 1.18.1
 author: GoldFrosch
 commands:
   gravity:

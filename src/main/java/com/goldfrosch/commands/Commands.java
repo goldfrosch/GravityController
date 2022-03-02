@@ -1,14 +1,12 @@
-package com.goldfrosch.plugin.commands;
+package com.goldfrosch.commands;
 
-import com.goldfrosch.plugin.GravityController;
-
-import com.goldfrosch.plugin.utils.MusicUtils;
+import com.goldfrosch.GravityController;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class Commands extends AbstractCommand{
+public class Commands extends AbstractCommand {
   public Commands(GravityController plugin, String Command) {
     super(plugin,Command);
   }
