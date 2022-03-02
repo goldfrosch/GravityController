@@ -2,19 +2,15 @@ package com.goldfrosch;
 
 import com.goldfrosch.commands.Commands;
 import com.goldfrosch.events.GravityEvent;
-import com.goldfrosch.utils.MusicUtils;
 
-import com.outstandingboy.donationalert.platform.Twip;
 
+import com.goldfrosch.utils.TwipUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
 
 @Getter
 @Setter
@@ -33,18 +29,8 @@ public class GravityController extends JavaPlugin {
     saveConfig();
 
     //투네이션 연동 작업
-    try {
-      Twip twip = new Twip("pDRed1bz29");
-      twip.subscribeDonation((donation -> {
-        for(Player player: getServer().getOnlinePlayers()) {
-          player.sendTitle("", donation.getAmount() + "원 후원 감사합니다 :)",1,1,1);
-          MusicUtils musicUtils = new MusicUtils(player);
-          musicUtils.playRandom();
-        }
-      }));
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    TwipUtils twipUtils = new TwipUtils();
+    twipUtils.donateAction();
 
     //Event Register
     registerEvent();
