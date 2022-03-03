@@ -4,6 +4,7 @@ import com.goldfrosch.commands.Commands;
 import com.goldfrosch.events.GravityEvent;
 
 
+import com.goldfrosch.shedulers.ItemGravity;
 import com.goldfrosch.utils.TwipUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class GravityController extends JavaPlugin {
 
     //Event Register
     registerEvent();
+    floatItems();
 
     //command
     Commands cmd = new Commands(this,"gravity");
@@ -56,5 +58,9 @@ public class GravityController extends JavaPlugin {
 
   public void registerEvent() {
     Bukkit.getPluginManager().registerEvents(new GravityEvent(this),this);
+  }
+
+  public void floatItems() {
+    Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new ItemGravity(this), 0L, 1L);
   }
 }
