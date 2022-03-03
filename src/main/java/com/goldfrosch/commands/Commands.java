@@ -1,6 +1,9 @@
 package com.goldfrosch.commands;
 
 import com.goldfrosch.GravityController;
+import com.goldfrosch.shedulers.PlayerGravity;
+import com.goldfrosch.utils.GravityUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,8 +31,13 @@ public class Commands extends AbstractCommand {
         } else {
           switch (args[0]) {
             case "start":
+              GravityUtils gravity = new GravityUtils(plugin, player);
+
               player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
               plugin.setStatus(true);
+
+              gravity.setGravity();
+              Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new PlayerGravity(plugin, player), 0L, 1L);
               break;
             case "stop":
               try {
