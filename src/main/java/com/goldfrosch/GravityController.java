@@ -30,8 +30,7 @@ public class GravityController extends JavaPlugin {
     saveConfig();
 
     //투네이션 연동 작업
-    TwipUtils twipUtils = new TwipUtils();
-    twipUtils.donateAction();
+    new TwipUtils(this).donateAction();
 
     //Event Register
     registerEvent();

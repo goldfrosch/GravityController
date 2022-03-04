@@ -1,7 +1,13 @@
 package com.goldfrosch.utils;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class InventoryUtils {
     private final Player player;
@@ -18,5 +24,43 @@ public class InventoryUtils {
             }
         }
         return amount;
+    }
+
+    public List<Integer> getInventoryNotNullIgnoreSlot() {
+        List<Integer> nowInvNum = new ArrayList<>();
+
+        for(int i = 9; i < player.getInventory().getContents().length; i++ ) {
+            if(player.getInventory().getContents()[i] != null) {
+                nowInvNum.add(i);
+            }
+        }
+
+        for(int num: nowInvNum) {
+            player.sendMessage(num + "g");
+        }
+        return nowInvNum;
+    }
+
+    public void setRandomListItemRemove(int count) {
+        List<Integer> list = getInventoryNotNullIgnoreSlot();
+        Collections.shuffle(list);
+
+        Object[] itemList = list.toArray();
+
+        for(int i = 0;i < count; i++) {
+            if(itemList[i] == null) {
+                return;
+            } else {
+                player.getInventory().getContents()[(int) itemList[i]].setType(Material.AIR);
+            }
+        }
+    }
+
+    public void addStonesPlayerInventory(int count) {
+        player.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64 * count));
+    }
+
+    public void clearPlayerInventory() {
+        player.getInventory().clear();
     }
 }
