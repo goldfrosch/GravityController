@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 @RequiredArgsConstructor
 public class GravityEvent implements Listener {
@@ -19,14 +20,12 @@ public class GravityEvent implements Listener {
 
   @EventHandler
   public void onPlayerDropEvent(PlayerDropItemEvent e) {
-    GravityUtils gravityUtils = new GravityUtils(plugin, e.getPlayer());
-    gravityUtils.setGravity();
+    new GravityUtils(plugin, e.getPlayer()).setGravity();
   }
 
   @EventHandler
   public void onPlayerPickupEvent(PlayerAttemptPickupItemEvent e) {
-    GravityUtils gravityUtils = new GravityUtils(plugin, e.getPlayer());
-    gravityUtils.setGravity();
+    new GravityUtils(plugin, e.getPlayer()).setGravity();
   }
 
   @EventHandler
@@ -40,6 +39,13 @@ public class GravityEvent implements Listener {
       floor.setY(e.getFrom().getBlockY() - 1);
 
       floor.getBlock().setType(Material.AIR);
+    }
+  }
+
+  @EventHandler
+  public void onPlayerConsumeEvent(PlayerItemConsumeEvent e) {
+    if(e.getItem().getType().equals(Material.MILK_BUCKET)) {
+      new GravityUtils(plugin, e.getPlayer()).setGravity();
     }
   }
 }
