@@ -3,6 +3,7 @@ package com.goldfrosch.commands;
 import com.goldfrosch.GravityController;
 import com.goldfrosch.shedulers.PlayerGravity;
 import com.goldfrosch.utils.GravityUtils;
+import com.goldfrosch.utils.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
