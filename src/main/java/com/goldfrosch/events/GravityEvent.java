@@ -6,10 +6,15 @@ import com.goldfrosch.utils.GravityUtils;
 
 import lombok.RequiredArgsConstructor;
 
+import me.libraryaddict.disguise.DisguiseAPI;
+import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -46,6 +51,13 @@ public class GravityEvent implements Listener {
   public void onPlayerConsumeEvent(PlayerItemConsumeEvent e) {
     if(e.getItem().getType().equals(Material.MILK_BUCKET)) {
       new GravityUtils(plugin, e.getPlayer()).setGravity();
+    }
+  }
+
+  @EventHandler
+  public void onWitherSpawnEvent(EntitySpawnEvent e) {
+    if(e.getEntityType().equals(EntityType.WITHER)) {
+      DisguiseAPI.disguiseToAll(e.getEntity(), new PlayerDisguise("GoldFrosch"));
     }
   }
 }
