@@ -2,6 +2,7 @@ main: com.goldfrosch.GravityController
 name: GravityController
 version: 0.0.1-SNAPSHOT
 author: GoldFrosch
+depend: [LibsDisguises]
 commands:
   gravity:
     description: HO!
