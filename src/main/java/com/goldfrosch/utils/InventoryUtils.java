@@ -1,7 +1,6 @@
 package com.goldfrosch.utils;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -35,9 +34,6 @@ public class InventoryUtils {
             }
         }
 
-        for(int num: nowInvNum) {
-            player.sendMessage(num + "g");
-        }
         return nowInvNum;
     }
 
@@ -57,7 +53,7 @@ public class InventoryUtils {
     }
 
     public void addStonesPlayerInventory(int count) {
-        player.getInventory().addItem(new ItemStack(Material.COBBLESTONE, 64 * count));
+        player.getInventory().addItem(new ItemStack(Material.STONE, 64 * count));
     }
 
     public void clearPlayerInventory() {
