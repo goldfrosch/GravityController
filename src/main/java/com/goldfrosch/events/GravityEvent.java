@@ -18,6 +18,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 @RequiredArgsConstructor
 public class GravityEvent implements Listener {
@@ -30,6 +31,11 @@ public class GravityEvent implements Listener {
 
   @EventHandler
   public void onPlayerPickupEvent(PlayerAttemptPickupItemEvent e) {
+    new GravityUtils(plugin, e.getPlayer()).setGravity();
+  }
+
+  @EventHandler
+  public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
     new GravityUtils(plugin, e.getPlayer()).setGravity();
   }
 
