@@ -41,40 +41,43 @@ public class TwipUtils {
     try {
       Twip twip = new Twip("pDRed1bz29");
       twip.subscribeDonation((donation -> {
-        if(!plugin.getStatus() && donation.getAmount() != 3000) {
+        if(!plugin.getStatus()) {
           return;
         }
-
 
         for(Player player: getServer().getOnlinePlayers()) {
           player.sendMessage(ChatColor.AQUA + String.valueOf(donation.getAmount()) + "원" +  ChatColor.YELLOW + "후원 감사합니다.");
 
+          if(donation.getAmount() != 3000) return;
+
+          player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 5, 5);
+
           if(Math.random() < 0.55) {
             if(getRandomTF()) {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[0]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[0]),10,10,10);
               new InventoryUtils(player).setRandomListItemRemove(9);
             } else {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[1]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[1]),10,10,10);
               new InventoryUtils(player).addStonesPlayerInventory(6);
             }
           } else if(Math.random() < 0.85) {
             if(getRandomTF()) {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[2]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[2]),10,10,10);
               new InventoryUtils(player).setRandomListItemRemove(18);
             } else {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[3]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[3]),10,10,10);
               new InventoryUtils(player).addStonesPlayerInventory(12);
             }
           } else if(Math.random() < 0.99) {
             if(getRandomTF()) {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[4]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[4]),10,10,10);
               new InventoryUtils(player).setRandomListItemRemove(27);
             } else {
-              player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[5]),10,10,10);
+              player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[5]),10,10,10);
               new InventoryUtils(player).addStonesPlayerInventory(18);
             }
           } else {
-            player.sendTitle(ChatColor.GREEN + "룰렛 결과",resultTitle(randomTwip[6]),10,10,10);
+            player.sendTitle(ChatColor.GREEN + "벌칙 결과",resultTitle(randomTwip[6]),10,10,10);
             new InventoryUtils(player).clearPlayerInventory();
           }
         }

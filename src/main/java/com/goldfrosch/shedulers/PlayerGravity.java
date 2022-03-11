@@ -19,7 +19,7 @@ public class PlayerGravity implements Runnable{
         player.getLocation().setY(64);
         player.sendMessage(ChatColor.BLUE + "System" + ChatColor.GRAY + ":: " + ChatColor.WHITE + "광활한 우주 그 곳에는 산소가 없습니다.");
         player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
-      } else if(player.getLocation().getBlockY() > 196) {
+      } else if(player.getLocation().getBlockY() > 180) {
         player.setVelocity(new Vector(0.0D, 2.0D, 0.0D));
       }
     }
