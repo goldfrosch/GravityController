@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 @RequiredArgsConstructor
 public class GravityEvent implements Listener {
@@ -36,7 +37,12 @@ public class GravityEvent implements Listener {
 
   @EventHandler
   public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
-    new GravityUtils(plugin, e.getPlayer()).setGravity();
+    new BukkitRunnable() {
+      @Override
+      public void run() {
+        new GravityUtils(plugin, e.getPlayer()).setGravity();
+      }
+    }.runTaskTimer(plugin, 1L, 1L);
   }
 
   @EventHandler
