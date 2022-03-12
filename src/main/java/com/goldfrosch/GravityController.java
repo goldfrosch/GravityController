@@ -37,7 +37,7 @@ public class GravityController extends JavaPlugin {
     floatItems();
 
     //command
-    Commands cmd = new Commands(this,"gravity");
+    Commands cmd = new Commands(this,"gc");
     getCommand(cmd.getCommand()).setExecutor(cmd);
     getCommand(cmd.getCommand()).setTabCompleter(cmd);
 

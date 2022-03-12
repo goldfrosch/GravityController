@@ -26,7 +26,7 @@ public class Commands extends AbstractCommand {
 
     if (sender instanceof Player) {
       Player player = (Player) sender;
-      if(label.equalsIgnoreCase("gravity")){
+      if(label.equalsIgnoreCase("gc")){
         if(args.length == 0){
           player.sendMessage(prefix + "어쩔 티비");
         } else {
