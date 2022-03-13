@@ -18,7 +18,7 @@ public class TwipUtils {
 
   public void donateAction() {
     try {
-      Twip twip = new Twip("AnXZN4e4wn");
+      Twip twip = new Twip("pDRed1bz29");
       twip.subscribeDonation((donation -> {
         if(!plugin.getStatus()) {
           return;
