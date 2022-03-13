@@ -62,7 +62,7 @@ public class Commands extends AbstractCommand {
               }
               break;
             case "stop":
-              if(!plugin.getStatus()) {
+              if(plugin.getStatus()) {
                 try {
                   player.sendMessage(prefix + "장비를 정지합니다");
                   Thread.sleep(1000);
@@ -74,7 +74,12 @@ public class Commands extends AbstractCommand {
                   e.printStackTrace();
                 }
               } else {
-                player.sendMessage(prefix + "게임이 현재 진행 중 입니다.");
+                player.sendMessage(prefix + "게임이 진행중이지 않습니다.");
+              }
+              break;
+            case "test":
+              for(Player players: getServer().getOnlinePlayers()) {
+                new GravityUtils(plugin, players).addPenalty();
               }
               break;
             default:

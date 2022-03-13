@@ -38,6 +38,10 @@ public class InventoryUtils {
     }
 
     public void setRandomListItemRemove(int count) {
+        if(player.getInventory().getContents().length == 0) {
+            return;
+        }
+
         List<Integer> list = getInventoryNotNullIgnoreSlot();
         Collections.shuffle(list);
 
