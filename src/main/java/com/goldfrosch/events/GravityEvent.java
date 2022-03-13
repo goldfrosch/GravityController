@@ -50,7 +50,7 @@ public class GravityEvent implements Listener {
     GravityUtils gravityUtils = new GravityUtils(plugin, e.getPlayer());
     int invAmounts = gravityUtils.playerInvAmounts();
 
-    if(plugin.getStatus() && invAmounts >= 1152) {
+    if(plugin.getStatus() && invAmounts >= 1728) {
       e.setCancelled(true);
       Location floor = e.getFrom();
       floor.setY(e.getFrom().getBlockY() - 1);

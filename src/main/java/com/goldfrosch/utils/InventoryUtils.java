@@ -44,10 +44,10 @@ public class InventoryUtils {
         Object[] itemList = list.toArray();
 
         for(int i = 0;i < count; i++) {
-            if(itemList[i] == null) {
-                return;
-            } else {
+            try {
                 player.getInventory().getContents()[(int) itemList[i]].setType(Material.AIR);
+            }  catch(ArrayIndexOutOfBoundsException e) {
+                return;
             }
         }
     }
