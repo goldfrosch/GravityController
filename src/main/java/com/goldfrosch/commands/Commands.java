@@ -3,8 +3,8 @@ package com.goldfrosch.commands;
 import com.goldfrosch.GravityController;
 import com.goldfrosch.shedulers.PlayerGravity;
 import com.goldfrosch.utils.GravityUtils;
-import com.goldfrosch.utils.InventoryUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,22 +32,26 @@ public class Commands extends AbstractCommand {
         } else {
           switch (args[0]) {
             case "start":
-              GravityUtils gravity = new GravityUtils(plugin, player);
-
               try {
+                player.sendMessage(prefix + ChatColor.WHITE + "10초 후 게임을 시작합니다.");
+                Thread.sleep(5000);
+                player.sendMessage(prefix + ChatColor.WHITE + "5초 후 게임을 시작합니다.");
+                Thread.sleep(1000);
+                player.sendMessage(prefix + ChatColor.WHITE + "4초 후 게임을 시작합니다.");
+                Thread.sleep(1000);
                 for(int i = 3; i >= 1; i--) {
-                  player.sendMessage(prefix + i + "초 후 게임을 시작합니다");
+                  player.sendMessage(prefix + ChatColor.WHITE + i + "초 후 게임을 시작합니다.");
                   Thread.sleep(1000);
                 }
-
-                player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
-                plugin.setStatus(true);
-
-                gravity.setGravity();
-                Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new PlayerGravity(plugin, player), 0L, 1L);
               } catch (InterruptedException e) {
                 e.printStackTrace();
               }
+
+              player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
+              plugin.setStatus(true);
+
+              new GravityUtils(plugin, player).setGravity();
+              Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new PlayerGravity(plugin, player), 0L, 1L);
               break;
             case "stop":
               try {
@@ -56,8 +60,6 @@ public class Commands extends AbstractCommand {
                 player.sendMessage(prefix + "어 뭐야 안되잖아?");
                 Thread.sleep(500);
                 player.sendMessage(prefix + "ㅋㅋ 구라임 멈춤 ㅅㄱ");
-
-                Bukkit.getScheduler().cancelTasks(plugin);
                 plugin.setStatus(false);
               } catch (InterruptedException e) {
                 e.printStackTrace();
