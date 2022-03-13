@@ -42,6 +42,7 @@ public class InventoryUtils {
         Collections.shuffle(list);
 
         Object[] itemList = list.toArray();
+        if(itemList.length == 0) return;
 
         for(int i = 0;i < count; i++) {
             try {
