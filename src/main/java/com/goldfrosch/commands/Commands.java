@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+import static org.bukkit.Bukkit.getServer;
+
 public class Commands extends AbstractCommand {
   public Commands(GravityController plugin, String Command) {
     super(plugin,Command);
@@ -32,37 +34,47 @@ public class Commands extends AbstractCommand {
         } else {
           switch (args[0]) {
             case "start":
-              try {
-                player.sendMessage(prefix + ChatColor.WHITE + "10초 후 게임을 시작합니다.");
-                Thread.sleep(5000);
-                player.sendMessage(prefix + ChatColor.WHITE + "5초 후 게임을 시작합니다.");
-                Thread.sleep(1000);
-                player.sendMessage(prefix + ChatColor.WHITE + "4초 후 게임을 시작합니다.");
-                Thread.sleep(1000);
-                for(int i = 3; i >= 1; i--) {
-                  player.sendMessage(prefix + ChatColor.WHITE + i + "초 후 게임을 시작합니다.");
+              if(!plugin.getStatus()) {
+                try {
+                  player.sendMessage(prefix + ChatColor.WHITE + "10초 후 게임을 시작합니다.");
+                  Thread.sleep(5000);
+                  player.sendMessage(prefix + ChatColor.WHITE + "5초 후 게임을 시작합니다.");
                   Thread.sleep(1000);
+                  player.sendMessage(prefix + ChatColor.WHITE + "4초 후 게임을 시작합니다.");
+                  Thread.sleep(1000);
+                  for(int i = 3; i >= 1; i--) {
+                    player.sendMessage(prefix + ChatColor.WHITE + i + "초 후 게임을 시작합니다.");
+                    Thread.sleep(1000);
+                  }
+                } catch (InterruptedException e) {
+                  e.printStackTrace();
                 }
-              } catch (InterruptedException e) {
-                e.printStackTrace();
+
+                player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
+                plugin.setStatus(true);
+
+                for(Player players: getServer().getOnlinePlayers()) {
+                  new GravityUtils(plugin, players).setGravity();
+                  Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new PlayerGravity(plugin, players), 0L, 1L);
+                };
+              } else {
+                player.sendMessage(prefix + "게임이 현재 진행 중 입니다.");
               }
-
-              player.sendMessage(prefix + "게임을 시작합니다. 둠황챠");
-              plugin.setStatus(true);
-
-              new GravityUtils(plugin, player).setGravity();
-              Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new PlayerGravity(plugin, player), 0L, 1L);
               break;
             case "stop":
-              try {
-                player.sendMessage(prefix + "장비를 정지합니다");
-                Thread.sleep(1000);
-                player.sendMessage(prefix + "어 뭐야 안되잖아?");
-                Thread.sleep(500);
-                player.sendMessage(prefix + "ㅋㅋ 구라임 멈춤 ㅅㄱ");
-                plugin.setStatus(false);
-              } catch (InterruptedException e) {
-                e.printStackTrace();
+              if(!plugin.getStatus()) {
+                try {
+                  player.sendMessage(prefix + "장비를 정지합니다");
+                  Thread.sleep(1000);
+                  player.sendMessage(prefix + "어 뭐야 안되잖아?");
+                  Thread.sleep(500);
+                  player.sendMessage(prefix + "ㅋㅋ 구라임 멈춤 ㅅㄱ");
+                  plugin.setStatus(false);
+                } catch (InterruptedException e) {
+                  e.printStackTrace();
+                }
+              } else {
+                player.sendMessage(prefix + "게임이 현재 진행 중 입니다.");
               }
               break;
             default:
